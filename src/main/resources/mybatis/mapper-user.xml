@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.twf.dao.IUserDao">
+
+	<sql id="likeQuery">
+
+		<if test="queryText!=null and queryText!=''">
+			and userName like concat('%',#{queryText},'%')
+			or name like concat('%',#{queryText},'%')
+		</if>
+	</sql>
+	<select id="queryUserPageBean" parameterType="com.twf.pojo.PageBean" resultType="com.twf.pojo.User">
+		select * from t_user
+		<where>
+			<include refid="likeQuery" />
+		</where>
+		order by createTime desc
+		limit #{start}, #{pagesize}
+	</select>
+
+	<select id="queryUserSize" parameterType="com.twf.pojo.PageBean" resultType="java.lang.Integer">
+		select count(*) from t_user
+		<where>
+			<include refid="likeQuery" />
+		</where>
+	</select>
+	<update id="updateUser" parameterType="com.twf.pojo.User">
+			update t_user set 
+				name=#{name},
+				userName=#{userName},
+				passWord=#{passWord},
+				email=#{email}
+			where id=#{id}<!--  group=${group} and -->
+	</update>
+	
+<!--	
+	<update id="updateTopic" parameterType="com.twf.pojo.Topic">
+			update t_topic set 
+				create_name=#{create_name},
+				title=#{title},
+				text=#{text},
+				active_time=#{active_time},
+				updated_time=#{updated_time}
+			where id=#{id}
+	</update>
+	
+	<delete id="deleteTopicById" parameterType="java.lang.Integer">
+		delete from t_topic where id=#{topic_id}	
+	</delete>
+	
+	<insert id="insertTopic" parameterType="com.twf.pojo.Topic">
+		insert into t_topic
+		(create_name,title,text,active_time,create_time,updated_time)
+		 values(#{create_name},#{title},#{text},#{active_time},#{create_time},#{updated_time})
+	</insert>
+
+	<insert id="insertUser" parameterType="com.twf.pojo.pojo.User">
+		insert into t_user
+		(name,userName,passWord,email,createTime)
+		 values(#{name},#{userName},#{passWord},#{email},#{createTime})
+	</insert>
+	
+	<insert id="insertUserRoles" parameterType="java.lang.Integer">
+		insert into t_user_role(userId,roleId) values
+		<foreach collection="unAssginRoleids" item="roleIds" separator=",">
+			(#{userId},#{roleIds})
+		</foreach>
+	</insert>
+	
+	<update id="updateUserById" parameterType="com.twf.pojo.pojo.User">
+			update t_user set 
+				name=#{name},
+				userName=#{userName},
+				passWord=#{passWord},
+				email=#{email},
+				createTime=#{createTime}
+			where id=#{id}
+	</update>
+	
+	
+	<delete id="deleteUserRoles" parameterType="java.lang.Integer">
+		delete from t_user_role where userId=#{userId} and roleId in
+		<foreach collection="assginRoleids" item="roleId" open="(" close=")" separator=",">
+			#{roleId}
+		</foreach>
+	</delete>
+	-->
+	
+	
+</mapper>

@@ -1,0 +1,22 @@
+[genuitec-file-id="wc1-24"],[genuitec-lp-path="/s_back/src/main/webapp/css/theme.css"],[genuitec-lp-enabled=false]{
+  /* for codelive */
+}
+
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}
